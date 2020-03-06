@@ -13,11 +13,9 @@ let snake = []
 function startSnake() {
     positionXsnake = Math.floor(Math.random() * 10)
     positionYsnake = Math.floor(Math.random() * 6)
-    console.log(positionXsnake,positionYsnake)
 
     snake = [(tableroPlayer[positionYsnake][positionXsnake])]
     document.getElementById(snake[0]).style.background = "blue"
-    console.log(snake)
 
 }
 startSnake();
@@ -25,15 +23,10 @@ startSnake();
 function startFood() {
     let positionXfood = Math.floor(Math.random() * 10)
     let positionYfood = Math.floor(Math.random() * 6)
-    console.log(positionXfood,positionYfood)
-    console.log(tableroPlayer[positionYfood][positionXfood])
-    
-    if ([(tableroPlayer[positionYfood][positionXfood])] != snake[0]){
+    if ([(tableroPlayer[positionYfood][positionXfood])] != snake[0]) {
         food = [(tableroPlayer[positionYfood][positionXfood])]
         document.getElementById(food[0]).style.background = "green"
-        console.log("Food y snake son distintos")
-    }else{
-        console.log("Food y snake son iguales")
+    } else {
         positionXfood = Math.floor(Math.random() * 10)
         positionYfood = Math.floor(Math.random() * 6)
         food = [(tableroPlayer[positionYfood][positionXfood])]
@@ -44,41 +37,71 @@ startFood();
 
 let d;
 
+function snakeEats() {
+
+}
+
 document.addEventListener("keydown", direction);
-function direction(event){
-    if(event.keyCode == 37 && d !="RIGHT"){
-        d = "LEFT";
-        document.getElementById(snake[0]).style.background = "white"
-        positionXsnake = positionXsnake - 1
-        snake = [(tableroPlayer[positionYsnake][positionXsnake])]
-        document.getElementById(snake[0]).style.background = "blue"
-        console.log("LEFT")
+function direction(event) {
+    if (event.keyCode == 37 && d != "RIGHT") {
+        if (snake.length == 1) {
+            d = "LEFT";
+            document.getElementById(snake[0]).style.background = "white"
+            positionXsnake = positionXsnake - 1
+            snake = [(tableroPlayer[positionYsnake][positionXsnake])]
+            document.getElementById(snake[0]).style.background = "blue"
+            if (snake[0] === food[0]) {
+                nuevoCuerpo = [(tableroPlayer[positionYsnake][positionXsnake + 1])]
+                snake.push(nuevoCuerpo)
+                startFood();
+                for (let x = 0; x < snake.length; x++) {
+                    document.getElementById(snake[x]).style.background = "blue"
+                }
+            }
+            console.log(snake)
+            console.log(snake[(snake.length - 1)])
+        } else if (snake.length > 1) {
+            d = "LEFT";
+            document.getElementById(snake[(snake.length - 1)]).style.background = "white"
+            positionXsnake = positionXsnake - 1
+            newHead = [(tableroPlayer[positionYsnake][positionXsnake])] 
+            snake.unshift(newHead); 
+            console.log(snake)
+            console.log("LEFT")
+            // esto genera una cola automatica, el cuerpo de la serpiente y la cabeza se deben trabajar x separado          
+        }
 
 
-    }else if(event.keyCode == 38 && d !="DOWN"){
+
+
+    } else if (event.keyCode == 38 && d != "DOWN") {
         d = "UP";
         document.getElementById(snake[0]).style.background = "white"
         positionYsnake = positionYsnake - 1
         snake = [(tableroPlayer[positionYsnake][positionXsnake])]
         document.getElementById(snake[0]).style.background = "blue"
-        console.log("UP")
 
 
-    }else if(event.keyCode == 39 && d !="LEFT"){
+
+    } else if (event.keyCode == 39 && d != "LEFT") {
         d = "RIGHT";
         document.getElementById(snake[0]).style.background = "white"
         positionXsnake = positionXsnake + 1
         snake = [(tableroPlayer[positionYsnake][positionXsnake])]
         document.getElementById(snake[0]).style.background = "blue"
-        console.log("RIGHT")
 
-        
-    }else if(event.keyCode == 40 && d !="UP"){
-        d= "DOWN";
+
+
+    } else if (event.keyCode == 40 && d != "UP") {
+        d = "DOWN";
         document.getElementById(snake[0]).style.background = "white"
         positionYsnake = positionYsnake + 1
         snake = [(tableroPlayer[positionYsnake][positionXsnake])]
         document.getElementById(snake[0]).style.background = "blue"
-        console.log("DOWN")
     }
+}
+
+function empujarCoordenadas() {
+    nuevoCuerpo = [(tableroPlayer[positionYsnake + 1][positionXsnake])]
+    snake.push(nuevoCuerpo)
 }
