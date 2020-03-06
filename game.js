@@ -8,8 +8,9 @@ let tableroPlayer = [
     ["a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6", "i6", "j6"],
 ]
 
-    let snake = []
-function startSnake() {
+
+
+function snake() {
     positionXsnake = Math.floor(Math.random() * 10)
     positionYsnake = Math.floor(Math.random() * 6)
     console.log(positionXsnake,positionYsnake)
@@ -17,8 +18,10 @@ function startSnake() {
     snake = [(tableroPlayer[positionYsnake][positionXsnake])]
     document.getElementById(snake[0]).style.background = "blue"
     console.log(snake[0])
+
+
 }
-startSnake();
+snake();
 
 function startFood() {
     let positionXfood = Math.floor(Math.random() * 10)
@@ -37,6 +40,25 @@ function startFood() {
         food = [(tableroPlayer[positionYfood][positionXfood])]
         document.getElementById(food[0]).style.background = "green"
     }
-    
 }
 startFood();
+
+let d;
+
+document.addEventListener("keydown", direction);
+function direction(event){
+    if(event.keyCode == 37 && d !="RIGHT"){
+        d = "LEFT";
+        console.log("LEFT")
+    }else if(event.keyCode == 38 && d !="DOWN"){
+        d = "UP";
+        console.log("UP")
+    }else if(event.keyCode == 39 && d !="LEFT"){
+        d = "RIGHT";
+        console.log("RIGHT")
+    }else if(event.keyCode == 40 && d !="UP"){
+        d= "DOWN";
+        console.log("DOWN")
+    }
+    
+}
