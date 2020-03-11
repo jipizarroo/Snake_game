@@ -1,4 +1,4 @@
-let tableroPlayer = [
+let tableroPlayer = [ //this is the board game
 
     ["a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1", "i1", "j1"],
     ["a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2", "i2", "j2"],
@@ -9,6 +9,7 @@ let tableroPlayer = [
 ]
 
 let snake = []
+let bodySnake = [];
 
 function startSnake() {
     positionXsnake = Math.floor(Math.random() * 10)
@@ -18,7 +19,7 @@ function startSnake() {
     document.getElementById(snake[0]).style.background = "blue"
 
 }
-startSnake();
+startSnake(); //this is the function that spawns the head of the snake into the board
 
 function startFood() {
     let positionXfood = Math.floor(Math.random() * 10)
@@ -33,13 +34,16 @@ function startFood() {
         document.getElementById(food[0]).style.background = "green"
     }
 }
-startFood();
+startFood(); //this is the function that spawns the food, it also tells that the food cant be spawned in the same coordinates has the head is.
 
-let d;
+
 
 function snakeEats() {
 
 }
+
+
+let d;
 
 document.addEventListener("keydown", direction);
 function direction(event) {
@@ -52,28 +56,13 @@ function direction(event) {
             document.getElementById(snake[0]).style.background = "blue"
             if (snake[0] === food[0]) {
                 nuevoCuerpo = [(tableroPlayer[positionYsnake][positionXsnake + 1])]
-                snake.push(nuevoCuerpo)
+                bodySnake.push(nuevoCuerpo)
                 startFood();
                 for (let x = 0; x < snake.length; x++) {
                     document.getElementById(snake[x]).style.background = "blue"
                 }
             }
-            console.log(snake)
-            console.log(snake[(snake.length - 1)])
-        } else if (snake.length > 1) {
-            d = "LEFT";
-            document.getElementById(snake[(snake.length - 1)]).style.background = "white"
-            positionXsnake = positionXsnake - 1
-            newHead = [(tableroPlayer[positionYsnake][positionXsnake])] 
-            snake.unshift(newHead); 
-            console.log(snake)
-            console.log("LEFT")
-            // esto genera una cola automatica, el cuerpo de la serpiente y la cabeza se deben trabajar x separado          
         }
-
-
-
-
     } else if (event.keyCode == 38 && d != "DOWN") {
         d = "UP";
         document.getElementById(snake[0]).style.background = "white"
