@@ -10,6 +10,7 @@ let tableroPlayer = [ //this is the board game
 
 let snake = []
 let bodySnake = [];
+let score = 0;
 
 function startSnake() {
     positionXsnake = Math.floor(Math.random() * 10)
@@ -39,10 +40,13 @@ startFood(); //this is the function that spawns the food, it also tells that the
 
 
 function snakeEats() {
-
-}
-
-
+    if (snake[0] === food[0]) {     //When the head of the snake hits the food, it will increase the score of the game.
+        score++;
+        startFood();
+        console.log("COMIDA!")
+        console.log(score)
+    }
+}   
 let d;
 
 document.addEventListener("keydown", direction);
@@ -54,14 +58,8 @@ function direction(event) {
             positionXsnake = positionXsnake - 1
             snake = [(tableroPlayer[positionYsnake][positionXsnake])]
             document.getElementById(snake[0]).style.background = "blue"
-            if (snake[0] === food[0]) {
-                nuevoCuerpo = [(tableroPlayer[positionYsnake][positionXsnake + 1])]
-                bodySnake.push(nuevoCuerpo)
-                startFood();
-                for (let x = 0; x < snake.length; x++) {
-                    document.getElementById(snake[x]).style.background = "blue"
-                }
-            }
+            snakeEats();
+            
         }
     } else if (event.keyCode == 38 && d != "DOWN") {
         d = "UP";
@@ -69,6 +67,7 @@ function direction(event) {
         positionYsnake = positionYsnake - 1
         snake = [(tableroPlayer[positionYsnake][positionXsnake])]
         document.getElementById(snake[0]).style.background = "blue"
+        snakeEats();
 
 
 
@@ -78,7 +77,7 @@ function direction(event) {
         positionXsnake = positionXsnake + 1
         snake = [(tableroPlayer[positionYsnake][positionXsnake])]
         document.getElementById(snake[0]).style.background = "blue"
-
+        snakeEats();
 
 
     } else if (event.keyCode == 40 && d != "UP") {
@@ -87,6 +86,7 @@ function direction(event) {
         positionYsnake = positionYsnake + 1
         snake = [(tableroPlayer[positionYsnake][positionXsnake])]
         document.getElementById(snake[0]).style.background = "blue"
+        snakeEats();
     }
 }
 
