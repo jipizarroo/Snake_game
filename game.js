@@ -43,51 +43,83 @@ function snakeEats() {
     if (snake[0] === food[0]) {     //When the head of the snake hits the food, it will increase the score of the game.
         score++;
         startFood();
-        console.log("COMIDA!")
-        console.log(score)
     }
 }   
 let d;
 
 document.addEventListener("keydown", direction);
 function direction(event) {
-    if (event.keyCode == 37 && d != "RIGHT") {
-        if (snake.length == 1) {
+    if ((event.keyCode == 37 || event.keyCode == 65) && d != "RIGHT") {
+        if (snake.length > 0) {
             d = "LEFT";
-            document.getElementById(snake[0]).style.background = "white"
-            positionXsnake = positionXsnake - 1
-            snake = [(tableroPlayer[positionYsnake][positionXsnake])]
+            document.getElementById(snake[0]).style.background = "white" //when moving, the background of the head of the snake will turn white.
+            for(let i = 0; i < bodySnake.length - 1; i++){                  // it will check if there is some lenght in the bodySnake (witch is sapareted from the head), then for each position it will turn the background white.
+                document.getElementById(bodySnake[i]).style.background = "white"  
+            }
+            positionBodySnake = [(tableroPlayer[positionYsnake][positionXsnake])] //when moving it will save the position of the head as the position in the body.
+            bodySnake.unshift(positionBodySnake);  // this will push the saved position as the first in the bodysnake array.
+            bodySnake.splice(score + 1, 1000); // 
+            positionXsnake = positionXsnake - 1 //this gives the new X coordinate to move one to the left.
+            snake = [(tableroPlayer[positionYsnake][positionXsnake])] //this gives the new coordinate to the head of the snake.
             document.getElementById(snake[0]).style.background = "blue"
-            snakeEats();
-            
+            for(let i = 0; i < bodySnake.length- 1 ; i++){
+                document.getElementById(bodySnake[i]).style.background = "red" 
+                
+            }      
         }
-    } else if (event.keyCode == 38 && d != "DOWN") {
+
+    } else if ((event.keyCode == 38 || event.keyCode == 87) && d != "DOWN") {
         d = "UP";
         document.getElementById(snake[0]).style.background = "white"
+        for(let i = 0; i < bodySnake.length - 1; i++){
+            document.getElementById(bodySnake[i]).style.background = "white"  
+        }
+        positionBodySnake = [(tableroPlayer[positionYsnake][positionXsnake])]
+        bodySnake.unshift(positionBodySnake); 
+        bodySnake.splice(score + 1, 1000);
         positionYsnake = positionYsnake - 1
         snake = [(tableroPlayer[positionYsnake][positionXsnake])]
         document.getElementById(snake[0]).style.background = "blue"
-        snakeEats();
+        for(let i = 0; i < bodySnake.length- 1 ; i++){
+            document.getElementById(bodySnake[i]).style.background = "red" 
+            
+        }
 
-
-
-    } else if (event.keyCode == 39 && d != "LEFT") {
+    } else if ((event.keyCode == 39 || event.keyCode == 68) && d != "LEFT") {
         d = "RIGHT";
         document.getElementById(snake[0]).style.background = "white"
+        for(let i = 0; i < bodySnake.length - 1; i++){
+            document.getElementById(bodySnake[i]).style.background = "white"  
+        }
+        positionBodySnake = [(tableroPlayer[positionYsnake][positionXsnake])]
+        bodySnake.unshift(positionBodySnake); 
+        bodySnake.splice(score + 1, 1000);
         positionXsnake = positionXsnake + 1
         snake = [(tableroPlayer[positionYsnake][positionXsnake])]
         document.getElementById(snake[0]).style.background = "blue"
-        snakeEats();
-
-
-    } else if (event.keyCode == 40 && d != "UP") {
+        for(let i = 0; i < bodySnake.length- 1 ; i++){
+            document.getElementById(bodySnake[i]).style.background = "red" 
+            
+        }
+    } else if ((event.keyCode == 40 || event.keyCode == 83)&& d != "UP") {
         d = "DOWN";
         document.getElementById(snake[0]).style.background = "white"
+        for(let i = 0; i < bodySnake.length - 1; i++){
+            document.getElementById(bodySnake[i]).style.background = "white"  
+        }
+        positionBodySnake = [(tableroPlayer[positionYsnake][positionXsnake])]
+        bodySnake.unshift(positionBodySnake); 
+        bodySnake.splice(score + 1, 1000);
         positionYsnake = positionYsnake + 1
         snake = [(tableroPlayer[positionYsnake][positionXsnake])]
         document.getElementById(snake[0]).style.background = "blue"
-        snakeEats();
+        for(let i = 0; i < bodySnake.length- 1 ; i++){
+            document.getElementById(bodySnake[i]).style.background = "red" 
+            
+        }
     }
+    snakeEats();
+
 }
 
 function empujarCoordenadas() {
