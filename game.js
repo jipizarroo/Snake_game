@@ -35,8 +35,24 @@ function startFood() {
         document.getElementById(food[0]).style.background = "green"
     }
 }
-startFood(); //this is the function that spawns the food, it also tells that the food cant be spawned in the same coordinates has the head is.
+startFood1(); //this is the function that spawns the food, it also tells that the food cant be spawned in the same coordinates has the head is.
 
+function startFood(){
+    let positionXfood = Math.floor(Math.random() * 10)
+    let positionYfood = Math.floor(Math.random() * 6)
+    console.log(bodySnake)
+    for(let i = 0; i < bodySnake.length; i++){
+        if ([(tableroPlayer[positionYfood][positionXfood])] != snake[0] || [(tableroPlayer[positionYfood][positionXfood])] != bodySnake[i]){
+            food = [(tableroPlayer[positionYfood][positionXfood])]
+            document.getElementById(food[0]).style.background = "green"
+        } else {
+            positionXfood = Math.floor(Math.random() * 10)
+            positionYfood = Math.floor(Math.random() * 6)
+            food = [(tableroPlayer[positionYfood][positionXfood])]
+            document.getElementById(food[0]).style.background = "green"
+        }
+    }
+}
 
 
 function snakeEats() {
